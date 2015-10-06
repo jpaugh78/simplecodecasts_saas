@@ -15,9 +15,6 @@
                     <%= f.label :comments%>
                     <%= f.text_area :comments, class: 'form-control'%>
                 </div>
-               <% if plan.id == 2 %>
-                 <%= button_to "Premium", destroy_user_session_path, method: :delete, class: 'btn btn-primary navbar-btn' %>
-               <% end %>
                 <%= f.submit 'Submit', class: 'btn <btn-default>'%>
             <% end %>
         </div>
