@@ -1,1 +1,9 @@
-<%= @user %>
+<div class="well">
+Name: <%= @user.profile.first_name %> <%= @user.profile.last_name %><br/>
+Job title: <%= @user.profile.job_title %><br/>
+<% if current_user.plan_id == 2 %>
+    Phone Number: <%= @user.profile.phone_number %><br/>
+    Email: <%= @user.profile.contact_email %><br/>
+<% end %>
+Description: <%= @user.profile.description %>
+</div>
