@@ -10,7 +10,9 @@ class User < ActiveRecord::Base
     if valid? #check validations on page
       customer = Stripe::Customer.create(description: email, plan: plan_id, card: stripe_card_token)
       self.stripe_customer_token = customer.id
+      flash[:notice] = "save payment info"
       save!
+      flash[:notice] = "save to db"
     end
   end
 end
