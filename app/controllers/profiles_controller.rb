@@ -16,6 +16,11 @@ class ProfilesController < ApplicationController
        end
     end
     
+    def edit
+        @user = User.find( params[:user_id] ) 
+        @profile = @user.build_profile(profile_params)
+    end 
+    
     #whitelist what you need the user to submit
     private
         def profile_params
