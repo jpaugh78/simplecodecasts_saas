@@ -1,4 +1,7 @@
 class ProfilesController < ApplicationController
+    before_action :authenticate_user! #before_action is a rails command, :authenticate_user is a devise function
+    before_action :only_current_user
+    #before_action :authenticate_user!, only: [:new, :edit] <--- this would only do the before action for those 2 pages
     def new
        # form where a user can fill out their own profile.
        @user = User.find( params[:user_id] )
@@ -17,13 +20,30 @@ class ProfilesController < ApplicationController
     end
     
     def edit
-        @user = User.find( params[:user_idg] ) 
-        @profile = @user.profile;
+        @user = User.find( params[:user_id] ) 
+        @profile = @user.profile
     end 
+    
+    def update
+        @user = User.find( params[:user_id] )
+        @profile = @user.profile
+        if @profile.update_attributes(profile_params)
+            flash[:success] = "Profile Updated!"
+            redirect_to user_path( params[:user_id] ) 
+        else
+            flash[:danger] = "Profile update failed!"
+            render action: :edit
+        end
+    end
     
     #whitelist what you need the user to submit
     private
         def profile_params
            params.require(:profile).permit(:first_name, :last_name, :job_title, :phone_number, :contact_email, :description) 
+        end
+        
+        def only_current_user
+           @user = User.find( params[:user_id] ) 
+           redirect_to(root_url) unless @user == current_user
         end
 end
