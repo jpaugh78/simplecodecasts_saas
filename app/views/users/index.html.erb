@@ -1,1 +1,7 @@
-List all of our users
+<div class="row">
+    <% @users.each do |user| %>
+        <% if user.profile %>
+            <%= user.profile %> <br/>
+        <% end %>
+    <% end %>
+</div>
