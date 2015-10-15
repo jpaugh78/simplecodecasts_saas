@@ -15,7 +15,14 @@
                 <h3>Contact Info</h3>
                 <%= @user.profile.phone_number %><br/>
                 <%= @user.profile.contact_email %><br/>
+                glyphicon glyphicon-envelope
             </div>
         <% end %>
+        <div>
+            <% if current_user != @user %>
+                <h3><%= link_to content_tag(:i, " Sent me a message", :class => "fa fa-envelope-o email-link"), new_user_conversations_path(current_user, sendTo: @user.id) %></h3>
+            <% end %>
+            <h6><%= @user.id %> </h6>
+        </div>
     </div>
 </div>
